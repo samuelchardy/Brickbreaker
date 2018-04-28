@@ -4,19 +4,29 @@ public class BrickBreaker
 {
 
 
+    void collisionDetection(Projectile ball)
+    {
+        Ball b = ball.getBall();
+        if(b.getXPosition() >= 300){
+            ball.setxDirection(-1 * ball.getxDirection());
+        }else if(b.getXPosition() <= 0){
+            ball.setxDirection(-1 * ball.getxDirection());
+        }
+
+        if(b.getYPosition() <= 0){
+            ball.setyDirection(-1 * ball.getyDirection());
+        }
+    }
+
 
 
     void movement(int i, Projectile[] balls)
     {
         for(int c=0; c<i; c++){
             Ball b = balls[c].getBall();
-            if(b.getXPosition() < 150){
-                b.setXPosition(b.getXPosition()-balls[c].getxDirection());
-            }else{
-                b.setXPosition(b.getXPosition()+balls[c].getxDirection());
-            }
-            b.setYPosition(b.getYPosition()-balls[c].getyDirection());
-            //System.out.println("c: " + c + "   x speed: " + ballSpeeds[c] + "   y speed: " + ballSpeeds[c+1]);
+            collisionDetection(balls[c]);
+            b.setXPosition(b.getXPosition()+balls[c].getxDirection());
+            b.setYPosition(b.getYPosition()+balls[c].getyDirection());
         }
     }
 
@@ -42,8 +52,9 @@ public class BrickBreaker
                 if(i < balls.length){
                     balls[i] = new Projectile(arrow.getEndX(), arrow.getEndY(), 3, "RED",g);
 
-                    balls[i].setxDirection(Math.abs((int)(arrow.getEndX() - arrow.getStartX()))/resistance);
-                    balls[i].setyDirection(Math.abs((int)(arrow.getEndY() - arrow.getStartY()))/resistance);
+                    balls[i].setxDirection((arrow.getEndX() - arrow.getStartX())/resistance);
+                    balls[i].setyDirection((arrow.getEndY() - arrow.getStartY())/resistance);
+                    //System.out.println("xDir: " + balls[i].getxDirection() + "   yDir: " + balls[i].getyDirection());
                     i++;
                 }
             }
@@ -80,9 +91,6 @@ public class BrickBreaker
        g.addLine(arrow);
        b.initRectangles(g, bricks);
        g.update();
-
-       //Projectile p = new Projectile(150,150,10,"RED",g);
-       //p.getBall().setYPosition(400);
 
        b.input(g, arrow, balls);
    }
