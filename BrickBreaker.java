@@ -3,10 +3,28 @@ import java.lang.Math.*;
 public class BrickBreaker
 {
 
-    void input(GameArena g, Line arrow, Ball[] balls)
+
+
+
+    void movement(int i, Projectile[] balls)
+    {
+        for(int c=0; c<i; c++){
+            Ball b = balls[c].getBall();
+            if(b.getXPosition() < 150){
+                b.setXPosition(b.getXPosition()-balls[c].getxDirection());
+            }else{
+                b.setXPosition(b.getXPosition()+balls[c].getxDirection());
+            }
+            b.setYPosition(b.getYPosition()-balls[c].getyDirection());
+            //System.out.println("c: " + c + "   x speed: " + ballSpeeds[c] + "   y speed: " + ballSpeeds[c+1]);
+        }
+    }
+
+
+    void input(GameArena g, Line arrow, Projectile[] balls)
     {
         int i = 0;
-        double[] ballSpeeds = new double[(balls.length)*2];
+        int resistance = 5;
         while(true){
             if(g.rightPressed() == true){
                 if(arrow.getEndX() >= 150){
@@ -22,28 +40,16 @@ public class BrickBreaker
                 }
             }else if(g.upPressed() == true){
                 if(i < balls.length){
-                    balls[i] = new Ball(arrow.getEndX(), arrow.getEndY(), 3, "RED");
-                    g.addBall(balls[i]);
+                    balls[i] = new Projectile(arrow.getEndX(), arrow.getEndY(), 3, "RED",g);
 
-                    ballSpeeds[i*2] = Math.abs((int)(arrow.getEndX() - arrow.getStartX()));
-                    ballSpeeds[(i*2)+1] = Math.abs((int)(arrow.getEndY() - arrow.getStartY()));
+                    balls[i].setxDirection(Math.abs((int)(arrow.getEndX() - arrow.getStartX()))/resistance);
+                    balls[i].setyDirection(Math.abs((int)(arrow.getEndY() - arrow.getStartY()))/resistance);
                     i++;
                 }
             }
             arrow.setStart(arrow.getStartX(), arrow.getStartY());
 
-            for(int c=0; c<i; c++){
-                if(balls[c].getXPosition() < 150){
-                    balls[c].setXPosition(balls[c].getXPosition()-ballSpeeds[c*2]);
-                }else{
-                    balls[c].setXPosition(balls[c].getXPosition()+ballSpeeds[c*2]);
-                }
-                balls[c].setYPosition(balls[c].getYPosition()-ballSpeeds[(c*2)+1]);
-                //System.out.println("c: " + c + "   x speed: " + ballSpeeds[c] + "   y speed: " + ballSpeeds[c+1]);
-            }
-
-
-
+            movement(i, balls);
             g.update();
         }
 
@@ -68,14 +74,15 @@ public class BrickBreaker
 
        GameArena g = new GameArena(300,450);
        Line arrow = new Line(150,450,150,410,2,"WHITE");
-       Ball[] balls = new Ball[20];
+       Projectile[] balls = new Projectile[20];
        Rectangle[][] bricks = new Rectangle[2][10];
 
        g.addLine(arrow);
        b.initRectangles(g, bricks);
        g.update();
 
-
+       //Projectile p = new Projectile(150,150,10,"RED",g);
+       //p.getBall().setYPosition(400);
 
        b.input(g, arrow, balls);
    }
