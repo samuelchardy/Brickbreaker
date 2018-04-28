@@ -34,6 +34,18 @@ public class BrickBreaker
 
     }
 
+    void initRectangles(GameArena g, Rectangle[][] bricks)
+    {
+        for(int i=0; i<bricks.length; i++){
+            for(int c=0; c<bricks[i].length; c++){
+                int xPos = (c*29)+20;
+                int yPos = (i*25)+15;
+                bricks[i][c] = new Rectangle(xPos, yPos, 27, 20, "WHITE");
+                g.addRectangle(bricks[i][c]);
+            }
+        }
+    }
+
 
    public static void main(String args[])
    {
@@ -42,10 +54,10 @@ public class BrickBreaker
        GameArena g = new GameArena(300,450);
        Line arrow = new Line(150,450,150,410,2,"WHITE");
        Ball[] balls = new Ball[20];
-       //Rectangle[][] bricks = new Rectangle[2][10];
+       Rectangle[][] bricks = new Rectangle[2][10];
 
        g.addLine(arrow);
-       //b.initRectangles(g, bricks);
+       b.initRectangles(g, bricks);
        g.update();
 
 
