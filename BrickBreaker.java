@@ -6,6 +6,7 @@ public class BrickBreaker
     void input(GameArena g, Line arrow, Ball[] balls)
     {
         int i = 0;
+        double[] ballSpeeds = new double[(balls.length)*2];
         while(true){
             if(g.rightPressed() == true){
                 if(arrow.getEndX() >= 150){
@@ -20,15 +21,29 @@ public class BrickBreaker
                     arrow.setEnd(arrow.getEndX()-1, arrow.getEndY()-1);
                 }
             }else if(g.upPressed() == true){
-                int xDir = Math.abs((int)(arrow.getEndX() - arrow.getStartX()));
-                int yDir = Math.abs((int)(arrow.getEndY() - arrow.getStartY()));
                 if(i < balls.length){
                     balls[i] = new Ball(arrow.getEndX(), arrow.getEndY(), 3, "RED");
                     g.addBall(balls[i]);
+
+                    ballSpeeds[i*2] = Math.abs((int)(arrow.getEndX() - arrow.getStartX()));
+                    ballSpeeds[(i*2)+1] = Math.abs((int)(arrow.getEndY() - arrow.getStartY()));
+                    i++;
                 }
-                i++;
             }
             arrow.setStart(arrow.getStartX(), arrow.getStartY());
+
+            for(int c=0; c<i; c++){
+                if(balls[c].getXPosition() < 150){
+                    balls[c].setXPosition(balls[c].getXPosition()-ballSpeeds[c*2]);
+                }else{
+                    balls[c].setXPosition(balls[c].getXPosition()+ballSpeeds[c*2]);
+                }
+                balls[c].setYPosition(balls[c].getYPosition()-ballSpeeds[(c*2)+1]);
+                //System.out.println("c: " + c + "   x speed: " + ballSpeeds[c] + "   y speed: " + ballSpeeds[c+1]);
+            }
+
+
+
             g.update();
         }
 
