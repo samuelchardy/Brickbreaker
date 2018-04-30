@@ -17,9 +17,19 @@ public class BrickBreaker
         for(int i=0; i<bricks.length; i++){
             for(int c=0; c<bricks[i].length; c++){
                 if( (xPos < (bricks[i][c].getXPosition() + bricks[i][c].getWidth()/2)) && (xPos > (bricks[i][c].getXPosition() - bricks[i][c].getWidth())) ){
-                    if( (yPos > bricks[i][c].getYPosition()) && (yPos < (bricks[i][c].getYPosition() + bricks[i][c].getHeight()/2)) ){
-                        System.out.println("i: " + i + "  c: " + c);
-                        return true;
+                    if( (yPos > bricks[i][c].getYPosition()-bricks[i][c].getHeight()/2) && (yPos < (bricks[i][c].getYPosition() + bricks[i][c].getHeight()/2)) ){
+                        if(! text[i][c].getText().equals("1")){
+                            g.removeText(text[i][c]);
+                            int textNum = Integer.parseInt(text[i][c].getText()) - 1;
+                            Text newText = new Text(Integer.toString(textNum),text[i][c].getXPosition(),text[i][c].getYPosition(),10,"RED");
+                            g.removeText(text[i][c]);
+                            text[i][c] = newText;
+                            g.addText(text[i][c]);
+                            return true;
+                        }else{
+                            g.removeText(text[i][c]);
+                            g.removeRectangle(bricks[i][c]);
+                        }
                     }
                 }
             }
