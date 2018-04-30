@@ -18,17 +18,17 @@ import javafx.scene.input.KeyCode;
 import java.awt.event.WindowEvent;
 
 /**
- * This class provides a simple window in which grahical objects can be drawn. 
+ * This class provides a simple window in which grahical objects can be drawn.
  *
  * Instances of the Ball and Rectangle classes can be added to an instance of this class to
- * draw and animate simple shapes on the screen. 
+ * draw and animate simple shapes on the screen.
  *
  * @see Ball
  * @see Rectangle
  *
  * @author Joe Finney
  */
-public class GameArena 
+public class GameArena
 {
 	// Size of window
 	private int arenaWidth;
@@ -72,7 +72,7 @@ public class GameArena
      * @param height The height of the window, in pixels.
 	 */
 	public GameArena(int width, int height)
-	{   
+	{
         this(width, height, true);
     }
 
@@ -85,7 +85,7 @@ public class GameArena
      * @param createWindow Determines if a JFrame containing the GameArena should be created (true) or not (false).
 	 */
 	public GameArena(int width, int height, boolean createWindow)
-	{   
+	{
         this.arenaWidth = width;
         this.arenaHeight = height;
         this.objectCount = 0;
@@ -128,30 +128,30 @@ public class GameArena
 
         EventHandler<KeyEvent> keyDownHandler = new EventHandler<KeyEvent>() {
             public void handle(final KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.UP) 
+                if (keyEvent.getCode() == KeyCode.UP)
                     up = true;
-                if (keyEvent.getCode() == KeyCode.DOWN) 
+                if (keyEvent.getCode() == KeyCode.DOWN)
                     down = true;
-                if (keyEvent.getCode() == KeyCode.LEFT) 
+                if (keyEvent.getCode() == KeyCode.LEFT)
                     left = true;
-                if (keyEvent.getCode() == KeyCode.RIGHT) 
+                if (keyEvent.getCode() == KeyCode.RIGHT)
                     right = true;
-                if (keyEvent.getCode() == KeyCode.SPACE) 
+                if (keyEvent.getCode() == KeyCode.SPACE)
                     space = true;
             }
         };
 
         EventHandler<KeyEvent> keyUpHandler = new EventHandler<KeyEvent>() {
             public void handle(final KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.UP) 
+                if (keyEvent.getCode() == KeyCode.UP)
                     up = false;
-                if (keyEvent.getCode() == KeyCode.DOWN) 
+                if (keyEvent.getCode() == KeyCode.DOWN)
                     down = false;
-                if (keyEvent.getCode() == KeyCode.LEFT) 
+                if (keyEvent.getCode() == KeyCode.LEFT)
                     left = false;
-                if (keyEvent.getCode() == KeyCode.RIGHT) 
+                if (keyEvent.getCode() == KeyCode.RIGHT)
                     right = false;
-                if (keyEvent.getCode() == KeyCode.SPACE) 
+                if (keyEvent.getCode() == KeyCode.SPACE)
                     space = false;
             }
         };
@@ -171,7 +171,7 @@ public class GameArena
 
 	/**
 	 * Close this GameArena window.
-	 * 
+	 *
 	 */
 	public void exit()
 	{
@@ -343,16 +343,16 @@ public class GameArena
 
 	//
     // Derive a Color object from a given string representation
-	// 
+	//
 	private Color getColourFromString(String col)
 	{
 		Color colour = Color.web(col);
 		return colour;
 	}
-	
+
 	/**
-	 * Adds a given Ball to the GameArena. 
-	 * Once a Ball is added, it will automatically appear on the window. 
+	 * Adds a given Ball to the GameArena.
+	 * Once a Ball is added, it will automatically appear on the window.
 	 *
 	 * @param b the ball to add to the GameArena.
 	 */
@@ -380,8 +380,8 @@ public class GameArena
 	}
 
 	/**
-	 * Remove a Ball from the GameArena. 
-	 * Once a Ball is removed, it will no longer appear on the window. 
+	 * Remove a Ball from the GameArena.
+	 * Once a Ball is removed, it will no longer appear on the window.
 	 *
 	 * @param b the ball to remove from the GameArena.
 	 */
@@ -396,8 +396,8 @@ public class GameArena
 	}
 
 	/**
-     * Adds a given Line to the GameArena. 
-	 * Once a Line is added, it will automatically appear on the window. 
+     * Adds a given Line to the GameArena.
+	 * Once a Line is added, it will automatically appear on the window.
 	 *
 	 * @param l the Line to add to the GameArena.
 	 */
@@ -425,8 +425,8 @@ public class GameArena
 	}
 
 	/**
-	 * Remove a Line from the GameArena. 
-	 * Once a Line is removed, it will no longer appear on the window. 
+	 * Remove a Line from the GameArena.
+	 * Once a Line is removed, it will no longer appear on the window.
 	 *
 	 * @param l the line to remove from the GameArena.
 	 */
@@ -441,8 +441,8 @@ public class GameArena
 	}
 
 	/**
-     * Adds the given Text to the GameArena. 
-	 * Once the Text is added, it will automatically appear on the window. 
+     * Adds the given Text to the GameArena.
+	 * Once the Text is added, it will automatically appear on the window.
 	 *
 	 * @param t the Text to add to the GameArena.
 	 */
@@ -470,8 +470,8 @@ public class GameArena
 	}
 
 	/**
-	 * Remove the given Text from the GameArena. 
-	 * Once the Text is removed, it will no longer appear on the window. 
+	 * Remove the given Text from the GameArena.
+	 * Once the Text is removed, it will no longer appear on the window.
 	 *
 	 * @param t the Text to remove from the GameArena.
 	 */
@@ -486,8 +486,8 @@ public class GameArena
 	}
 
 	/**
-	 * Adds a given rectangle to the GameArena. 
-	 * Once a Rectangle is added, it will automatically appear on the window. 
+	 * Adds a given rectangle to the GameArena.
+	 * Once a Rectangle is added, it will automatically appear on the window.
 	 *
 	 * @param r the rectangle to add to the GameArena.
 	 */
@@ -515,8 +515,8 @@ public class GameArena
 	}
 
 	/**
-	 * Remove a Rectangle from the GameArena. 
-	 * Once a Rectangle is removed, it will no longer appear on the window. 
+	 * Remove a Rectangle from the GameArena.
+	 * Once a Rectangle is removed, it will no longer appear on the window.
 	 *
 	 * @param r the rectangle to remove from the GameArena.
 	 */
@@ -538,7 +538,7 @@ public class GameArena
      * each time you want the screen to update.
      *
      * This method also waits for approximately 1/50 of a second (the time it takes
-     * your computer display to refresh).  You'll find this useful if you're trying 
+     * your computer display to refresh).  You'll find this useful if you're trying
      * to animate your application.
 	 */
 
@@ -557,7 +557,7 @@ public class GameArena
         renderLock.lock();
 	}
 
-	/** 
+	/**
 	 * Gets the width of the GameArena window, in pixels.
 	 * @return the width in pixels
 	 */
@@ -566,7 +566,7 @@ public class GameArena
 		return arenaWidth;
 	}
 
-	/** 
+	/**
 	 * Gets the height of the GameArena window, in pixels.
 	 * @return the height in pixels
 	 */
@@ -575,7 +575,7 @@ public class GameArena
 		return arenaHeight;
 	}
 
-	/** 
+	/**
 	 * Determines if the user is currently pressing the cursor up button.
 	 * @return true if the up button is pressed, false otherwise.
 	 */
@@ -584,7 +584,7 @@ public class GameArena
 		return up;
 	}
 
-	/** 
+	/**
 	 * Determines if the user is currently pressing the cursor down button.
 	 * @return true if the down button is pressed, false otherwise.
 	 */
@@ -593,7 +593,7 @@ public class GameArena
 		return down;
 	}
 
-	/** 
+	/**
 	 * Determines if the user is currently pressing the cursor left button.
 	 * @return true if the left button is pressed, false otherwise.
 	 */
@@ -602,7 +602,7 @@ public class GameArena
 		return left;
 	}
 
-	/** 
+	/**
 	 * Determines if the user is currently pressing the cursor right button.
 	 * @return true if the right button is pressed, false otherwise.
 	 */
@@ -611,7 +611,7 @@ public class GameArena
 		return right;
 	}
 
-	/** 
+	/**
 	 * Determines if the user is currently pressing the space bar.
 	 * @return true if the space bar is pressed, false otherwise.
 	 */
@@ -620,7 +620,7 @@ public class GameArena
 		return space;
 	}
 
-    /** 
+    /**
      * Acquires the JPanel containing this GameArena.
      * @return The JPanel object containing this GameArena.
      */
@@ -628,4 +628,9 @@ public class GameArena
     {
         return jfxPanel;
     }
+
+	public JFrame getWindow()
+	{
+		return window;
+	}
 }

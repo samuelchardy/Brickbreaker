@@ -1,4 +1,5 @@
 import java.lang.Math.*;
+import javax.swing.*;
 
 public class BrickBreaker
 {
@@ -9,6 +10,21 @@ public class BrickBreaker
     private Rectangle[][] bricks = new Rectangle[2][10];
     private int i = 0;
 
+
+    boolean isInside(double xPos, double yPos)
+    {
+        for(int i=0; i<bricks.length; i++){
+            for(int c=0; c<bricks[i].length; c++){
+                if( (xPos < (bricks[i][c].getXPosition() + bricks[i][c].getWidth()/2)) && (xPos > (bricks[i][c].getXPosition() - bricks[i][c].getWidth())) ){
+                    if( (yPos > bricks[i][c].getYPosition()) && (yPos < (bricks[i][c].getYPosition() + bricks[i][c].getHeight()/2)) ){
+                        System.out.println("i: " + i + "  c: " + c);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     void collisionDetection(Projectile ball)
     {
@@ -22,8 +38,15 @@ public class BrickBreaker
         if(b.getYPosition() <= 0){
             ball.setyDirection(-1 * ball.getyDirection());
         }
-    }
 
+        if(isInside(b.getXPosition()+ball.getxDirection(), b.getYPosition()) == true){
+            ball.setxDirection(-1 * ball.getxDirection());
+        }
+        if(isInside(b.getXPosition(), b.getYPosition()+ball.getyDirection()) == true){
+            ball.setyDirection(-1 * ball.getyDirection());
+        }
+
+    }
 
 
     void movement(int i)
@@ -64,18 +87,16 @@ public class BrickBreaker
             }
         }
         arrow.setStart(arrow.getStartX(), arrow.getStartY());
-
         movement(i);
     }
 
 
-    void menu()
+    void startUp()
     {
         while(true){
             input();
             g.update();
         }
-
     }
 
     void initRectangles()
@@ -93,12 +114,11 @@ public class BrickBreaker
 
     public BrickBreaker()
     {
-
         g.addLine(arrow);
         initRectangles();
         g.update();
 
-        menu();
+        startUp();
     }
 
 
