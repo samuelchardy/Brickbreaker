@@ -1,13 +1,13 @@
 /**
- * Models a simple, solid rectangle. 
+ * Models a simple, solid rectangle.
  * This class represents a Rectangle object. When combined with the GameArena class,
  * instances of the Rectangle class can be displayed on the screen.
  */
-public class Rectangle 
+public class Rectangle
 {
     // The following instance variables define the information needed to represent a Ball
-    // Feel free to more instance variables if you think it will support your work... 
-    
+    // Feel free to more instance variables if you think it will support your work...
+
     private double xPosition;            // The X coordinate of this Rectangle
     private double yPosition;            // The Y coordinate of this Rectangle
     private double width;                // The width of this Rectangle
@@ -97,10 +97,10 @@ public class Rectangle
 
     /**
      * Changes the colour of this Rectangle to the given value.
-     * 
-     * @param c The new colour of this Rectangle. 
+     *
+     * @param c The new colour of this Rectangle.
      * <BR><BR>
-     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.  
+     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.
      * Pure red is "#FF0000"   <BR>
      * Pure green is "#00FF00" <BR>
      * Pure blue is "#0000FF"  <BR>
@@ -141,5 +141,5 @@ public class Rectangle
         width = w;
         height = h;
         colour = col;
-    }    
+    }
 }
