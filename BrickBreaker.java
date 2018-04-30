@@ -3,8 +3,10 @@ import javax.swing.*;
 
 public class BrickBreaker
 {
-    private GameArena g = new GameArena(450,450);
-    private Line arrow = new Line(g.getArenaWidth()/2,450,g.getArenaWidth()/2,410,2,"WHITE");
+    private GameArena g = new GameArena(675,450);
+    private JFrame frame = g.getWindow();
+    private Menu m = new Menu();
+    private Line arrow = new Line(225,450,225,410,2,"WHITE");
     private Projectile[] balls = new Projectile[50];
     private Rectangle[][] bricks = new Rectangle[2][10];
     private Text[][] text = new Text[2][10];
@@ -37,10 +39,11 @@ public class BrickBreaker
         return false;
     }
 
+
     void collisionDetection(Projectile ball)
     {
         Ball b = ball.getBall();
-        if(b.getXPosition() >= g.getArenaWidth()){
+        if(b.getXPosition() >= 450){
             ball.setxDirection(-1 * ball.getxDirection());
         }else if(b.getXPosition() <= 0){
             ball.setxDirection(-1 * ball.getxDirection());
@@ -76,13 +79,13 @@ public class BrickBreaker
         int resistance = 5;
 
         if(g.rightPressed() == true){
-            if(arrow.getEndX() >= g.getArenaWidth()/2){
+            if(arrow.getEndX() >= 225){
                 arrow.setEnd(arrow.getEndX()+1, arrow.getEndY()+1);
             }else{
                 arrow.setEnd(arrow.getEndX()+1, arrow.getEndY()-1);
             }
         }else if(g.leftPressed() == true){
-            if(arrow.getEndX() <= g.getArenaWidth()/2){
+            if(arrow.getEndX() <= 225){
                 arrow.setEnd(arrow.getEndX()-1, arrow.getEndY()+1);
             }else{
                 arrow.setEnd(arrow.getEndX()-1, arrow.getEndY()-1);
