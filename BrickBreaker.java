@@ -1,5 +1,6 @@
 import java.lang.Math.*;
 import javax.swing.*;
+import java.awt.BorderLayout;
 
 public class BrickBreaker
 {
@@ -130,6 +131,14 @@ public class BrickBreaker
 
     public BrickBreaker()
     {
+        frame.setLayout(new BorderLayout());
+        JPanel panel = m.initJComponents();
+        JButton btn = new JButton("wow");
+        btn.setSize(100,100);
+        btn.setLocation(100,100);
+        panel.add(btn);
+        frame.add(panel,BorderLayout.EAST);
+        //frame.pack();
         g.addLine(arrow);
         initRectangles();
         g.update();
