@@ -4,27 +4,27 @@ public class Projectile
     private double xDirection;
     private double yDirection;
 
-    Ball getBall()
+    public Ball getBall()
     {
         return b;
     }
 
-    double getxDirection()
+    public double getxDirection()
     {
         return xDirection;
     }
 
-    double getyDirection()
+    public double getyDirection()
     {
         return yDirection;
     }
 
-    void setxDirection(double xDir)
+    public void setxDirection(double xDir)
     {
         xDirection = xDir;
     }
 
-    void setyDirection(double yDir)
+    public void setyDirection(double yDir)
     {
         yDirection = yDir;
     }

@@ -6,6 +6,8 @@ public class BrickBreaker
 {
     private GameArena g = new GameArena(675,450);
     private JFrame frame = g.getWindow();
+    private JPanel layoutPanel = new JPanel();
+
     private Menu m = new Menu();
     private Line arrow = new Line(225,450,225,410,2,"WHITE");
     private Projectile[] balls = new Projectile[50];
@@ -15,7 +17,7 @@ public class BrickBreaker
     private int i = 0;
 
 
-    boolean isInside(double xPos, double yPos)
+    private boolean isInside(double xPos, double yPos)
     {
         for(int i=0; i<bricks.length; i++){
             for(int c=0; c<bricks[i].length; c++){
@@ -24,7 +26,7 @@ public class BrickBreaker
                         if(! text[i][c].getText().equals("1")){
                             g.removeText(text[i][c]);
                             int textNum = Integer.parseInt(text[i][c].getText()) - 1;
-                            Text newText = new Text(Integer.toString(textNum),text[i][c].getXPosition(),text[i][c].getYPosition(),10,"RED");
+                            Text newText = new Text(Integer.toString(textNum), text[i][c].getXPosition(), text[i][c].getYPosition(), 10, "RED");
                             g.removeText(text[i][c]);
                             text[i][c] = newText;
                             g.addText(text[i][c]);
@@ -41,7 +43,7 @@ public class BrickBreaker
     }
 
 
-    void collisionDetection(Projectile ball)
+    private void collisionDetection(Projectile ball)
     {
         Ball b = ball.getBall();
         if(b.getXPosition() >= 450){
@@ -64,7 +66,7 @@ public class BrickBreaker
     }
 
 
-    void movement(int i)
+    private void movement(int i)
     {
         for(int c=0; c<i; c++){
             Ball b = balls[c].getBall();
@@ -75,7 +77,7 @@ public class BrickBreaker
     }
 
 
-    void input()
+    private void input()
     {
         int resistance = 5;
 
@@ -98,6 +100,7 @@ public class BrickBreaker
                 balls[i].setxDirection((arrow.getEndX() - arrow.getStartX())/resistance);
                 balls[i].setyDirection((arrow.getEndY() - arrow.getStartY())/resistance);
                 //System.out.println("xDir: " + balls[i].getxDirection() + "   yDir: " + balls[i].getyDirection());
+                m.decrementBalls();
                 i++;
             }
         }
@@ -106,7 +109,7 @@ public class BrickBreaker
     }
 
 
-    void startUp()
+    private void startUp()
     {
         while(true){
             input();
@@ -114,7 +117,7 @@ public class BrickBreaker
         }
     }
 
-    void initRectangles()
+    private void initRectangles()
     {
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
@@ -129,16 +132,19 @@ public class BrickBreaker
     }
 
 
+    public void changePanel()
+    {
+
+    }
+
+
     public BrickBreaker()
     {
         frame.setLayout(new BorderLayout());
         JPanel panel = m.initJComponents();
-        JButton btn = new JButton("wow");
-        btn.setSize(100,100);
-        btn.setLocation(100,100);
-        panel.add(btn);
-        frame.add(panel,BorderLayout.EAST);
-        //frame.pack();
+        layoutPanel.add(panel);
+        frame.add(layoutPanel,BorderLayout.EAST);
+
         g.addLine(arrow);
         initRectangles();
         g.update();
