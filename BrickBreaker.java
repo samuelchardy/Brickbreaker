@@ -94,7 +94,6 @@ public class BrickBreaker
         }else if(g.upPressed() == true){
             if(i < balls.length){
                 balls[i] = new Ball(arrow.getEndX(), arrow.getEndY(), 3, "RED");
-
                 balls[i].setxDirection((arrow.getEndX() - arrow.getStartX())/resistance);
                 balls[i].setyDirection((arrow.getEndY() - arrow.getStartY())/resistance);
                 g.addBall(balls[i]);
@@ -111,7 +110,14 @@ public class BrickBreaker
     private void startUp()
     {
         while(true){
-            input();
+            if(m.getLevel() == 0){
+                input();
+            }else if(m.getLevel() == 1)
+            {
+                m.resetLevel();
+
+                initRectangles();
+            }
             g.update();
         }
     }
@@ -145,9 +151,6 @@ public class BrickBreaker
         frame.add(layoutPanel,BorderLayout.EAST);
 
         g.addLine(arrow);
-        initRectangles();
-        g.update();
-
         startUp();
     }
 

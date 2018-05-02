@@ -15,6 +15,21 @@ public class Menu implements ActionListener
     private JButton levelTwo = new JButton("2");
     private JButton levelThree = new JButton("3");
 
+    private int level = 0;
+
+
+    public int getLevel()
+    {
+        return level;
+    }
+
+
+    public void resetLevel()
+    {
+        level = 0;
+    }
+
+
     public JPanel initJComponents()
     {
         //panel
@@ -73,10 +88,19 @@ public class Menu implements ActionListener
     }
 
 
+    public void resetBallCount()
+    {
+        String[] currentText = numOfBalls.getText().split(" ");
+        String newText = currentText[0] + " " + currentText[1] + " 50";
+        numOfBalls.setText(newText);
+    }
+
+
     public void actionPerformed(ActionEvent e)
     {
         if(e.getSource() == levelOne){
             gamePanel();
+            level = 1;
         }
     }
 
