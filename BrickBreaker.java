@@ -10,7 +10,7 @@ public class BrickBreaker
 
     private Menu m = new Menu();
     private Line arrow = new Line(225,450,225,410,2,"WHITE");
-    private Projectile[] balls = new Projectile[50];
+    private Ball[] balls = new Ball[50];
     private Rectangle[][] bricks = new Rectangle[2][10];
     private Text[][] text = new Text[2][10];
 
@@ -43,23 +43,22 @@ public class BrickBreaker
     }
 
 
-    private void collisionDetection(Projectile ball)
+    private void collisionDetection(Ball ball)
     {
-        Ball b = ball.getBall();
-        if(b.getXPosition() >= 450){
+        if(ball.getXPosition() >= 450){
             ball.setxDirection(-1 * ball.getxDirection());
-        }else if(b.getXPosition() <= 0){
+        }else if(ball.getXPosition() <= 0){
             ball.setxDirection(-1 * ball.getxDirection());
         }
 
-        if(b.getYPosition() <= 0){
+        if(ball.getYPosition() <= 0){
             ball.setyDirection(-1 * ball.getyDirection());
         }
 
-        if(isInside(b.getXPosition()+ball.getxDirection(), b.getYPosition()) == true){
+        if(isInside(ball.getXPosition()+ball.getxDirection(), ball.getYPosition()) == true){
             ball.setxDirection(-1 * ball.getxDirection());
         }
-        if(isInside(b.getXPosition(), b.getYPosition()+ball.getyDirection()) == true){
+        if(isInside(ball.getXPosition(), ball.getYPosition()+ball.getyDirection()) == true){
             ball.setyDirection(-1 * ball.getyDirection());
         }
 
@@ -69,10 +68,9 @@ public class BrickBreaker
     private void movement(int i)
     {
         for(int c=0; c<i; c++){
-            Ball b = balls[c].getBall();
             collisionDetection(balls[c]);
-            b.setXPosition(b.getXPosition()+balls[c].getxDirection());
-            b.setYPosition(b.getYPosition()+balls[c].getyDirection());
+            balls[c].setXPosition(balls[c].getXPosition()+balls[c].getxDirection());
+            balls[c].setYPosition(balls[c].getYPosition()+balls[c].getyDirection());
         }
     }
 
@@ -95,10 +93,11 @@ public class BrickBreaker
             }
         }else if(g.upPressed() == true){
             if(i < balls.length){
-                balls[i] = new Projectile(arrow.getEndX(), arrow.getEndY(), 3, "RED",g);
+                balls[i] = new Ball(arrow.getEndX(), arrow.getEndY(), 3, "RED");
 
                 balls[i].setxDirection((arrow.getEndX() - arrow.getStartX())/resistance);
                 balls[i].setyDirection((arrow.getEndY() - arrow.getStartY())/resistance);
+                g.addBall(balls[i]);
                 //System.out.println("xDir: " + balls[i].getxDirection() + "   yDir: " + balls[i].getyDirection());
                 m.decrementBalls();
                 i++;

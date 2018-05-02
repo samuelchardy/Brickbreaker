@@ -1,18 +1,22 @@
 /**
- * Models a simple solid sphere. 
+ * Models a simple solid sphere.
  * This class represents a Ball object. When combined with the GameArena class,
  * instances of the Ball class can be displayed on the screen.
  */
-public class Ball 
+public class Ball
 {
     // The following instance variables define the information needed to represent a Ball
-    // Feel free to more instance variables if you think it will support your work... 
-    
+    // Feel free to more instance variables if you think it will support your work...
+
     private double xPosition;           // The X coordinate of this Ball
     private double yPosition;           // The Y coordinate of this Ball
     private double size;                // The diameter of this Ball
     private String colour;              // The colour of this Ball
-                                       
+
+    private double xDirection;
+    private double yDirection;
+
+
 
     /**
      * Obtains the current position of this Ball.
@@ -59,7 +63,7 @@ public class Ball
         return size;
     }
 
-    /** 
+    /**
      * Changes the size of this Ball to the given value.
      * @param s The new size of the Ball.
      */
@@ -77,12 +81,48 @@ public class Ball
         return colour;
     }
 
+
+
+
+
+
+
+
+
+
+    public double getxDirection()
+    {
+        return xDirection;
+    }
+
+    public double getyDirection()
+    {
+        return yDirection;
+    }
+
+    public void setxDirection(double xDir)
+    {
+        xDirection = xDir;
+    }
+
+    public void setyDirection(double yDir)
+    {
+        yDirection = yDir;
+    }
+
+
+
+
+
+
+
+
     /**
      * Changes the colour of this Ball to the given value.
-     * 
-     * @param c The new colour of this Ball. 
+     *
+     * @param c The new colour of this Ball.
      * <BR><BR>
-     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.  
+     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.
      * Pure red is "#FF0000"   <BR>
      * Pure green is "#00FF00" <BR>
      * Pure blue is "#0000FF"  <BR>
@@ -123,6 +163,5 @@ public class Ball
         yPosition = y;
         size = diameter;
         colour = col;
-    }    
+    }
 }
-
