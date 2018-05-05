@@ -9,13 +9,14 @@ public class Menu implements ActionListener
 
     private JLabel title = new JLabel("Brick Breaker");
     private JLabel numOfBalls = new JLabel("Balls left: 50");
-    private JLabel levelNumber = new JLabel("Level No. ");
+    private JLabel levelNumber = new JLabel("Level: 0");
+    private JLabel roundNumber = new JLabel("Round: 0 of 5");
 
     private JButton levelOne = new JButton("1");
     private JButton levelTwo = new JButton("2");
     private JButton levelThree = new JButton("3");
 
-    private int level = 0;
+    private int level = 4;
 
 
     public int getLevel()
@@ -30,10 +31,36 @@ public class Menu implements ActionListener
     }
 
 
+    public void decrementBalls()
+    {
+        String[] currentText = numOfBalls.getText().split(" ");
+        int ballsLeft = Integer.parseInt(currentText[2])-1;
+        String newText = currentText[0] + " " + currentText[1] + " " + String.valueOf(ballsLeft);
+        numOfBalls.setText(newText);
+    }
+
+
+    public void resetBallCount()
+    {
+        String[] currentText = numOfBalls.getText().split(" ");
+        String newText = currentText[0] + " " + currentText[1] + " 50";
+        numOfBalls.setText(newText);
+    }
+
+
+    public void incrementRound()
+    {
+        String[] currentText = numOfBalls.getText().split(" ");
+        int round = Integer.parseInt(currentText[1])+1;
+        String newText = currentText[0] + " " + String.valueOf(round) + " " + currentText[2] + " " + currentText[3];
+        roundNumber.setText(newText);
+    }
+
+
     public JPanel initJComponents()
     {
         //panel
-        menuPanel.setLayout(new GridLayout(8,3));
+        menuPanel.setLayout(new GridLayout(100,100));
 
         //title
         title.setLocation(2,2);
@@ -70,37 +97,25 @@ public class Menu implements ActionListener
         levelThree.setVisible(false);
 
         //levelNumber
-        levelNumber.setLocation(8,2);
+        levelNumber.setText("Level No. " + String.valueOf(level));
+        levelNumber.setLocation(6,2);
         menuPanel.add(levelNumber);
 
         //numOfBalls
-        numOfBalls.setLocation(7,2);
+        numOfBalls.setLocation(8,2);
         menuPanel.add(numOfBalls);
-    }
 
-
-    public void decrementBalls()
-    {
-        String[] currentText = numOfBalls.getText().split(" ");
-        int ballsLeft = Integer.parseInt(currentText[2])-1;
-        String newText = currentText[0] + " " + currentText[1] + " " + String.valueOf(ballsLeft);
-        numOfBalls.setText(newText);
-    }
-
-
-    public void resetBallCount()
-    {
-        String[] currentText = numOfBalls.getText().split(" ");
-        String newText = currentText[0] + " " + currentText[1] + " 50";
-        numOfBalls.setText(newText);
+        //roundNumber
+        roundNumber.setLocation(8,2);
+        menuPanel.add(roundNumber);
     }
 
 
     public void actionPerformed(ActionEvent e)
     {
         if(e.getSource() == levelOne){
-            gamePanel();
             level = 1;
+            gamePanel();
         }
     }
 

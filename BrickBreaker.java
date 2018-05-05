@@ -11,8 +11,8 @@ public class BrickBreaker
     private Menu m = new Menu();
     private Line arrow = new Line(225,450,225,410,2,"WHITE");
     private Ball[] balls = new Ball[50];
-    private Rectangle[][] bricks = new Rectangle[2][10];
-    private Text[][] text = new Text[2][10];
+    private Rectangle[][] bricks = new Rectangle[6][10];
+    private Text[][] text = new Text[6][10];
 
     private int i = 0;
 
@@ -51,8 +51,8 @@ public class BrickBreaker
             ball.setxDirection(-1 * ball.getxDirection());
         }
 
-        if(ball.getYPosition() <= 0){
-            ball.setyDirection(-1 * ball.getyDirection());
+        if(ball.getYPosition()+ball.getyDirection() <= 0){
+            ball.setyDirection(Math.abs(ball.getyDirection()));
         }
 
         if(isInside(ball.getXPosition()+ball.getxDirection(), ball.getYPosition()) == true){
@@ -60,6 +60,10 @@ public class BrickBreaker
         }
         if(isInside(ball.getXPosition(), ball.getYPosition()+ball.getyDirection()) == true){
             ball.setyDirection(-1 * ball.getyDirection());
+        }
+
+        if(ball.getYPosition() < 0){
+            g.removeBall(ball);
         }
 
     }
@@ -110,6 +114,10 @@ public class BrickBreaker
     private void startUp()
     {
         while(true){
+            if(i == 50){
+
+            }
+
             if(m.getLevel() == 0){
                 input();
             }else if(m.getLevel() == 1)
@@ -126,20 +134,20 @@ public class BrickBreaker
     {
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
+                int yPos;
+                if(v < bricks.length/2){
+                    yPos = -1 * ((v*25)+15);
+                }else{
+                    yPos = ((v-bricks.length/2) * 25)+15;
+                }
+
                 int xPos = (c*29)+20;
-                int yPos = (v*25)+15;
                 bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "WHITE");
                 text[v][c] = new Text("20",xPos-6,yPos+4,10,"RED");
                 g.addRectangle(bricks[v][c]);
                 g.addText(text[v][c]);
             }
         }
-    }
-
-
-    public void changePanel()
-    {
-
     }
 
 
