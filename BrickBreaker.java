@@ -115,6 +115,10 @@ public class BrickBreaker
     {
         while(true){
             if(i == 50){
+                if(roundOver()==1){
+                    nextRound();
+                    i = 0;
+                }
 
             }
 
@@ -129,6 +133,30 @@ public class BrickBreaker
             g.update();
         }
     }
+
+
+    private int roundOver()
+    {
+        for(int i=0; i<balls.length; i++){
+            if(balls[i].getYPosition() > 0 && balls[i].getYPosition() < 450){
+                return 0;
+            }
+        }
+        return 1;
+    }
+
+
+    private void nextRound()
+    {
+        for(int v=0; v<bricks.length; v++){
+            for(int c=0; c<bricks[v].length; c++){
+                bricks[v][c].setYPosition(bricks[v][c].getYPosition() + 20);
+            }
+        }
+        m.incrementRound();
+        m.resetBallCount();
+    }
+
 
     private void initRectangles()
     {

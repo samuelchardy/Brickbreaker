@@ -50,7 +50,7 @@ public class Menu implements ActionListener
 
     public void incrementRound()
     {
-        String[] currentText = numOfBalls.getText().split(" ");
+        String[] currentText = roundNumber.getText().split(" ");
         int round = Integer.parseInt(currentText[1])+1;
         String newText = currentText[0] + " " + String.valueOf(round) + " " + currentText[2] + " " + currentText[3];
         roundNumber.setText(newText);
