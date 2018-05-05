@@ -151,6 +151,7 @@ public class BrickBreaker
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
                 bricks[v][c].setYPosition(bricks[v][c].getYPosition() + 20);
+                text[v][c].setYPosition(text[v][c].getYPosition() + 20);
             }
         }
         m.incrementRound();
