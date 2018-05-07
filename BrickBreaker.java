@@ -13,6 +13,7 @@ public class BrickBreaker
     private Ball[] balls = new Ball[50];
     private Rectangle[][] bricks = new Rectangle[6][10];
     private Text[][] text = new Text[6][10];
+    private Text levelOver = new Text("LEVEL FAILED!", 100, 100,50,"WHITE");
 
     private int i = 0;
 
@@ -111,27 +112,57 @@ public class BrickBreaker
     }
 
 
-    private void startUp()
+    private void gameLoop()
     {
         while(true){
             if(i == 50){
                 if(roundOver()==1){
-                    nextRound();
-                    i = 0;
+                    if(m.getRound() == 5){
+                        g.addText(levelOver);
+                        levelOver();
+                        i = 0;
+                    }else{
+                        nextRound();
+                        i = 0;
+                    }
                 }
+            }
 
+            if(m.getLevel() == 4){
+                m.menuPanel();
             }
 
             if(m.getLevel() == 0){
                 input();
-            }else if(m.getLevel() == 1)
-            {
-                m.resetLevel();
+            }
 
-                initRectangles();
+            if(m.getLevel() == 1)
+            {
+                m.setLevel(0);
+                initLevelOne();
             }
             g.update();
         }
+    }
+
+
+    private void levelOver()
+    {
+        for(int v=0; v<bricks.length; v++){
+            for(int c=0; c<bricks[v].length; c++){
+                g.removeRectangle(bricks[v][c]);
+                g.removeText(text[v][c]);
+            }
+        }
+
+        for(int i=0; i<balls.length; i++){
+            g.removeBall(balls[i]);
+        }
+
+        i = 0;
+        m.resetBallCount();
+        m.setRound(1);
+        m.setLevel(4);
     }
 
 
@@ -159,8 +190,10 @@ public class BrickBreaker
     }
 
 
-    private void initRectangles()
+    private void initLevelOne()
     {
+        g.removeText(levelOver);
+
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
                 int yPos;
@@ -188,7 +221,7 @@ public class BrickBreaker
         frame.add(layoutPanel,BorderLayout.EAST);
 
         g.addLine(arrow);
-        startUp();
+        gameLoop();
     }
 
 
@@ -196,10 +229,5 @@ public class BrickBreaker
    {
 
    }
-
-
-
-
-
 
 }
