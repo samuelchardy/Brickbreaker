@@ -22,7 +22,7 @@ public class BrickBreaker
     {
         for(int i=0; i<bricks.length; i++){
             for(int c=0; c<bricks[i].length; c++){
-                if( (xPos < (bricks[i][c].getXPosition() + bricks[i][c].getWidth()/2)) && (xPos > (bricks[i][c].getXPosition() - bricks[i][c].getWidth())) ){
+                if( (xPos < (bricks[i][c].getXPosition() + bricks[i][c].getWidth()/2)) && (xPos > (bricks[i][c].getXPosition() - bricks[i][c].getWidth()/2)) ){
                     if( (yPos > bricks[i][c].getYPosition()-bricks[i][c].getHeight()/2) && (yPos < (bricks[i][c].getYPosition() + bricks[i][c].getHeight()/2)) ){
                         if(! text[i][c].getText().equals("1")){
                             g.removeText(text[i][c]);
@@ -181,8 +181,8 @@ public class BrickBreaker
     {
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
-                bricks[v][c].setYPosition(bricks[v][c].getYPosition() + 20);
-                text[v][c].setYPosition(text[v][c].getYPosition() + 20);
+                bricks[v][c].setYPosition(bricks[v][c].getYPosition() + bricks[v][c].getHeight()+5);
+                text[v][c].setYPosition(text[v][c].getYPosition() + bricks[v][c].getHeight()+5);
             }
         }
         m.incrementRound();
@@ -198,12 +198,12 @@ public class BrickBreaker
             for(int c=0; c<bricks[v].length; c++){
                 int yPos;
                 if(v < bricks.length/2){
-                    yPos = -1 * ((v*25)+15);
+                    yPos = -1 * ((v*25)+10);
                 }else{
                     yPos = ((v-bricks.length/2) * 25)+15;
                 }
 
-                int xPos = (c*29)+20;
+                int xPos = ((575/10) * (c+1))-20;
                 bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "WHITE");
                 text[v][c] = new Text("20",xPos-6,yPos+4,10,"RED");
                 g.addRectangle(bricks[v][c]);
