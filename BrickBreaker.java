@@ -9,7 +9,7 @@ public class BrickBreaker
     private JPanel layoutPanel = new JPanel();
 
     private Menu m = new Menu();
-    private Line arrow = new Line(225,450,225,410,2,"WHITE");
+    private Line arrow = new Line(287,450,287,410,4,"WHITE");
     private Ball[] balls = new Ball[50];
     private Rectangle[][] bricks = new Rectangle[6][10];
     private Text[][] text = new Text[6][10];
@@ -46,7 +46,7 @@ public class BrickBreaker
 
     private void collisionDetection(Ball ball)
     {
-        if(ball.getXPosition() >= 450){
+        if(ball.getXPosition() >= 575){
             ball.setxDirection(-1 * ball.getxDirection());
         }else if(ball.getXPosition() <= 0){
             ball.setxDirection(-1 * ball.getxDirection());
@@ -85,13 +85,13 @@ public class BrickBreaker
         int resistance = 5;
 
         if(g.rightPressed() == true){
-            if(arrow.getEndX() >= 225){
+            if(arrow.getEndX() >= 287){
                 arrow.setEnd(arrow.getEndX()+1, arrow.getEndY()+1);
             }else{
                 arrow.setEnd(arrow.getEndX()+1, arrow.getEndY()-1);
             }
         }else if(g.leftPressed() == true){
-            if(arrow.getEndX() <= 225){
+            if(arrow.getEndX() <= 287){
                 arrow.setEnd(arrow.getEndX()-1, arrow.getEndY()+1);
             }else{
                 arrow.setEnd(arrow.getEndX()-1, arrow.getEndY()-1);
