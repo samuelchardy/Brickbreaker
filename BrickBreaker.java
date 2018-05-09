@@ -153,6 +153,9 @@ public class BrickBreaker
             }else if(m.getLevel() == 2){
                 m.setLevel(0);
                 initLevel(2);
+            }else if(m.getLevel() == 3){
+                m.setLevel(0);
+                initLevel(3);
             }
 
 
@@ -222,6 +225,7 @@ public class BrickBreaker
     private void initLevel(int level)
     {
         int xPos=0, yPos=0;
+        String health = "20";
 
         g.removeText(levelOver);
         rowOfSpecial = rand.nextInt(bricks.length);
@@ -229,6 +233,8 @@ public class BrickBreaker
 
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
+
+
                 if(v < bricks.length/2){
                     yPos = -1 * ((v*25)+10);
                 }else{
@@ -237,20 +243,23 @@ public class BrickBreaker
 
                 if(level == 1){
                     xPos = ((575/10) * (c+1))-20;
-                }else if(level == 2){
+                }else if(level == 2 ){
                     if((v % 2) == 0){
                         xPos = ((575/10) * (c+1))-20;
                     }else{
                         xPos = ((575/10) * (c+1));
                     }
+                }else{
+                    health = "250";
+                    xPos = ((575/10) * (c+1))-20;
                 }
 
                 if((v == rowOfSpecial) && (c == colOfSpecial)){
                     bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "GOLD");
                     text[v][c] = new Text("!",xPos-6,yPos+4,10,"WHITE");
                 }else{
-                    bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "WHITE");
-                    text[v][c] = new Text("20",xPos-6,yPos+4,10,"RED");
+                    bricks[v][c] = new Rectangle(xPos, yPos, 55, 20, "WHITE");
+                    text[v][c] = new Text(health,xPos-6,yPos+4,10,"RED");
                 }
                 g.addRectangle(bricks[v][c]);
                 g.addText(text[v][c]);

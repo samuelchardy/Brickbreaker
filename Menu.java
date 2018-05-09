@@ -151,6 +151,9 @@ public class Menu implements ActionListener
         }else if(e.getSource() == levelTwo){
             level = 2;
             gamePanel();
+        }else if(e.getSource() == levelThree){
+            level = 3;
+            gamePanel();
         }
 
     }
