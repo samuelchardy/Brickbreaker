@@ -1,6 +1,8 @@
 import java.lang.Math.*;
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class BrickBreaker
 {
@@ -15,7 +17,10 @@ public class BrickBreaker
     private Text[][] text = new Text[6][10];
     private Text levelOver = new Text("LEVEL FAILED!", 100, 100,50,"WHITE");
 
+    private Random rand = new Random();
     private int i = 0;
+    private int rowOfSpecial;
+    private int colOfSpecial;
 
 
     private boolean isInside(double xPos, double yPos)
@@ -23,8 +28,12 @@ public class BrickBreaker
         for(int i=0; i<bricks.length; i++){
             for(int c=0; c<bricks[i].length; c++){
                 if( (xPos < (bricks[i][c].getXPosition() + bricks[i][c].getWidth()/2)) && (xPos > (bricks[i][c].getXPosition() - bricks[i][c].getWidth()/2)) ){
-                    if( (yPos > bricks[i][c].getYPosition()-bricks[i][c].getHeight()/2) && (yPos < (bricks[i][c].getYPosition() + bricks[i][c].getHeight()/2)) ){
-                        if(! text[i][c].getText().equals("1")){
+                    if( (yPos > bricks[i][c].getYPosition() -  bricks[i][c].getHeight()/2) && (yPos < (bricks[i][c].getYPosition() + bricks[i][c].getHeight()/2)) ){
+                        if(text[i][c].getText().equals("!")){
+                            g.removeText(text[i][c]);
+                            g.removeRectangle(bricks[i][c]);
+                            triggerLaser();
+                        }else if(! text[i][c].getText().equals("1")){
                             g.removeText(text[i][c]);
                             int textNum = Integer.parseInt(text[i][c].getText()) - 1;
                             Text newText = new Text(Integer.toString(textNum), text[i][c].getXPosition(), text[i][c].getYPosition(), 10, "RED");
@@ -63,7 +72,7 @@ public class BrickBreaker
             ball.setyDirection(-1 * ball.getyDirection());
         }
 
-        if(ball.getYPosition() < 0){
+        if(ball.getYPosition() < -10){
             g.removeBall(ball);
         }
 
@@ -116,11 +125,12 @@ public class BrickBreaker
     {
         while(true){
             if(i == 50){
-                if(roundOver()==1){
+                if(roundOver()==true){
                     if(m.getRound() == 5){
-                        g.addText(levelOver);
-                        levelOver();
-                        i = 0;
+                        if(didWin() == true){
+                            levelOver.setText("You Win!");
+                        }
+                        clearLevel();
                     }else{
                         nextRound();
                         i = 0;
@@ -130,23 +140,28 @@ public class BrickBreaker
 
             if(m.getLevel() == 4){
                 m.menuPanel();
-            }
-
-            if(m.getLevel() == 0){
+            }else if(m.getLevel() == 0){
                 input();
-            }
-
-            if(m.getLevel() == 1)
+                if(didWin() == true){
+                    levelOver.setText("You Win!");
+                    clearLevel();
+                }
+            }else if(m.getLevel() == 1)
             {
                 m.setLevel(0);
-                initLevelOne();
+                initLevel(1);
+            }else if(m.getLevel() == 2){
+                m.setLevel(0);
+                initLevel(2);
             }
+
+
             g.update();
         }
     }
 
 
-    private void levelOver()
+    private void clearLevel()
     {
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
@@ -163,17 +178,31 @@ public class BrickBreaker
         m.resetBallCount();
         m.setRound(1);
         m.setLevel(4);
+        g.addText(levelOver);
     }
 
 
-    private int roundOver()
+    private boolean didWin()
     {
-        for(int i=0; i<balls.length; i++){
-            if(balls[i].getYPosition() > 0 && balls[i].getYPosition() < 450){
-                return 0;
+        for(int v=0; v<bricks.length; v++){
+            for(int c=0; c<bricks[v].length; c++){
+                if(!text[v][c].getText().equals("1") && !text[v][c].getText().equals("!")){
+                    return false;
+                }
             }
         }
-        return 1;
+        return true;
+    }
+
+
+    private boolean roundOver()
+    {
+        for(int i=0; i<balls.length; i++){
+            if(balls[i].getYPosition() > -20 && balls[i].getYPosition() < 450){
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -190,25 +219,74 @@ public class BrickBreaker
     }
 
 
-    private void initLevelOne()
+    private void initLevel(int level)
     {
+        int xPos=0, yPos=0;
+
         g.removeText(levelOver);
+        rowOfSpecial = rand.nextInt(bricks.length);
+        colOfSpecial = rand.nextInt(bricks[rowOfSpecial].length);
 
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
-                int yPos;
                 if(v < bricks.length/2){
                     yPos = -1 * ((v*25)+10);
                 }else{
                     yPos = ((v-bricks.length/2) * 25)+15;
                 }
 
-                int xPos = ((575/10) * (c+1))-20;
-                bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "WHITE");
-                text[v][c] = new Text("20",xPos-6,yPos+4,10,"RED");
+                if(level == 1){
+                    xPos = ((575/10) * (c+1))-20;
+                }else if(level == 2){
+                    if((v % 2) == 0){
+                        xPos = ((575/10) * (c+1))-20;
+                    }else{
+                        xPos = ((575/10) * (c+1));
+                    }
+                }
+
+                if((v == rowOfSpecial) && (c == colOfSpecial)){
+                    bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "GOLD");
+                    text[v][c] = new Text("!",xPos-6,yPos+4,10,"WHITE");
+                }else{
+                    bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "WHITE");
+                    text[v][c] = new Text("20",xPos-6,yPos+4,10,"RED");
+                }
                 g.addRectangle(bricks[v][c]);
                 g.addText(text[v][c]);
             }
+        }
+    }
+
+
+    private void triggerLaser()
+    {
+        Line horLaser = new Line(0,bricks[rowOfSpecial][colOfSpecial].getYPosition(),575,bricks[rowOfSpecial][colOfSpecial].getYPosition(),10,"GOLD");
+        Line verLaser = new Line(bricks[rowOfSpecial][colOfSpecial].getXPosition(),0,bricks[rowOfSpecial][colOfSpecial].getXPosition(),450,10,"GOLD");
+        g.addLine(verLaser);
+        g.addLine(horLaser);
+
+        for(int i=0; i<bricks.length; i++){
+            text[i][colOfSpecial].setText("1");
+            g.removeText(text[i][colOfSpecial]);
+            g.removeRectangle(bricks[i][colOfSpecial]);
+        }
+
+        for(int i=0; i<bricks[rowOfSpecial].length; i++){
+            text[rowOfSpecial][i].setText("1");
+            g.removeText(text[rowOfSpecial][i]);
+            g.removeRectangle(bricks[rowOfSpecial][i]);
+        }
+        g.update();
+
+        try{
+            TimeUnit.SECONDS.sleep(1);
+            g.removeLine(horLaser);
+            g.removeLine(verLaser);
+        }catch(InterruptedException ie){
+            System.out.println("InterruptedException: " + ie);
+        }catch(Exception e){
+            System.out.println("Error: " + e);
         }
     }
 
@@ -223,11 +301,4 @@ public class BrickBreaker
         g.addLine(arrow);
         gameLoop();
     }
-
-
-   public static void main(String args[])
-   {
-
-   }
-
 }
