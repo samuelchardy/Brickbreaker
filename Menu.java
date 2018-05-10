@@ -48,6 +48,8 @@ public class Menu implements ActionListener
     }
 
 
+
+
     public void decrementBalls()
     {
         String[] currentText = numOfBalls.getText().split(" ");
@@ -57,10 +59,10 @@ public class Menu implements ActionListener
     }
 
 
-    public void resetBallCount()
+    public void setBallCount(int balls)
     {
         String[] currentText = numOfBalls.getText().split(" ");
-        String newText = currentText[0] + " " + currentText[1] + " 50";
+        String newText = currentText[0] + " " + currentText[1] + " " + Integer.toString(balls);
         numOfBalls.setText(newText);
     }
 

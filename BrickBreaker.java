@@ -13,29 +13,45 @@ public class BrickBreaker
     private Menu m = new Menu();
     private Line arrow = new Line(287,450,287,410,4,"WHITE");
     private Ball[] balls = new Ball[50];
+    private Ball[] dupBalls = new Ball[100];
     private Rectangle[][] bricks = new Rectangle[6][10];
     private Text[][] text = new Text[6][10];
     private Text levelOver = new Text("LEVEL FAILED!", 100, 100,50,"WHITE");
 
     private Random rand = new Random();
-    private int i = 0;
+    private int i = 0, maxBalls = 50;
     private int rowOfSpecial;
     private int colOfSpecial;
 
 
-    private boolean isInside(double xPos, double yPos)
+    private boolean isInside(Ball ball, double xPos, double yPos)
     {
         for(int i=0; i<bricks.length; i++){
             for(int c=0; c<bricks[i].length; c++){
                 if( (xPos < (bricks[i][c].getXPosition() + bricks[i][c].getWidth()/2)) && (xPos > (bricks[i][c].getXPosition() - bricks[i][c].getWidth()/2)) ){
                     if( (yPos > bricks[i][c].getYPosition() -  bricks[i][c].getHeight()/2) && (yPos < (bricks[i][c].getYPosition() + bricks[i][c].getHeight()/2)) ){
-                        if(text[i][c].getText().equals("!")){
+                        if(text[i][c].getText().equals("^")){
+                            int posOrNeg = rand.nextInt(10);
+                            int newXDir = rand.nextInt(16);
+                            int newYDir = rand.nextInt(10)-10;
+
+                            if(posOrNeg % 2 == 0){
+                                newXDir = -newXDir;
+                            }
+                            ball.setxDirection(newXDir);
+                            ball.setyDirection(newYDir);
+                        }else if(text[i][c].getText().equals("!")){
                             g.removeText(text[i][c]);
                             g.removeRectangle(bricks[i][c]);
                             triggerLaser();
                         }else if(! text[i][c].getText().equals("1")){
                             g.removeText(text[i][c]);
-                            int textNum = Integer.parseInt(text[i][c].getText()) - 1;
+                            int textNum;
+                            try{
+                                textNum = Integer.parseInt(text[i][c].getText()) - 1;
+                            }catch(Exception e){
+                                textNum = 1;
+                            }
                             Text newText = new Text(Integer.toString(textNum), text[i][c].getXPosition(), text[i][c].getYPosition(), 10, "RED");
                             g.removeText(text[i][c]);
                             text[i][c] = newText;
@@ -65,10 +81,10 @@ public class BrickBreaker
             ball.setyDirection(Math.abs(ball.getyDirection()));
         }
 
-        if(isInside(ball.getXPosition()+ball.getxDirection(), ball.getYPosition()) == true){
+        if(isInside(ball, ball.getXPosition()+ball.getxDirection(), ball.getYPosition()) == true){
             ball.setxDirection(-1 * ball.getxDirection());
         }
-        if(isInside(ball.getXPosition(), ball.getYPosition()+ball.getyDirection()) == true){
+        if(isInside(ball, ball.getXPosition(), ball.getYPosition()+ball.getyDirection()) == true){
             ball.setyDirection(-1 * ball.getyDirection());
         }
 
@@ -79,7 +95,7 @@ public class BrickBreaker
     }
 
 
-    private void movement(int i)
+    private void movement(Ball[] balls, int i)
     {
         for(int c=0; c<i; c++){
             collisionDetection(balls[c]);
@@ -117,14 +133,14 @@ public class BrickBreaker
             }
         }
         arrow.setStart(arrow.getStartX(), arrow.getStartY());
-        movement(i);
+        movement(balls, i);
     }
 
 
     private void gameLoop()
     {
         while(true){
-            if(i == 50){
+            if(i == maxBalls){
                 if(roundOver()==true){
                     if(m.getRound() == 5){
                         if(didWin() == true){
@@ -148,12 +164,16 @@ public class BrickBreaker
                 }
             }else if(m.getLevel() == 1)
             {
+                maxBalls = 50;
                 m.setLevel(0);
                 initLevel(1);
             }else if(m.getLevel() == 2){
+                maxBalls = 50;
                 m.setLevel(0);
                 initLevel(2);
             }else if(m.getLevel() == 3){
+                maxBalls = 50;
+                m.setBallCount(50);
                 m.setLevel(0);
                 initLevel(3);
             }
@@ -178,7 +198,7 @@ public class BrickBreaker
         }
 
         i = 0;
-        m.resetBallCount();
+        m.setBallCount(50);
         m.setRound(1);
         m.setLevel(4);
         g.addText(levelOver);
@@ -200,7 +220,7 @@ public class BrickBreaker
 
     private boolean roundOver()
     {
-        for(int i=0; i<balls.length; i++){
+        for(int i=0; i<maxBalls; i++){
             if(balls[i].getYPosition() > -20 && balls[i].getYPosition() < 450){
                 return false;
             }
@@ -218,7 +238,7 @@ public class BrickBreaker
             }
         }
         m.incrementRound();
-        m.resetBallCount();
+        m.setBallCount(50);
     }
 
 
@@ -250,12 +270,12 @@ public class BrickBreaker
                         xPos = ((575/10) * (c+1));
                     }
                 }else{
-                    health = "250";
+                    health = "50";
                     xPos = ((575/10) * (c+1))-20;
                 }
 
                 if((v == rowOfSpecial) && (c == colOfSpecial)){
-                    bricks[v][c] = new Rectangle(xPos, yPos, 27, 20, "GOLD");
+                    bricks[v][c] = new Rectangle(xPos, yPos, 55, 20, "GOLD");
                     text[v][c] = new Text("!",xPos-6,yPos+4,10,"WHITE");
                 }else{
                     bricks[v][c] = new Rectangle(xPos, yPos, 55, 20, "WHITE");
@@ -265,6 +285,22 @@ public class BrickBreaker
                 g.addText(text[v][c]);
             }
         }
+
+        if(level == 3){
+            for(int col=0; col<bricks[5].length; col++){
+                if(col != 0 && col != 9){
+                    bricks[5][col].setYPosition(bricks[5][col].getYPosition()+60);
+                    bricks[5][col].setColour("GOLD");
+                    text[5][col].setYPosition(bricks[5][col].getYPosition());
+                    text[5][col].setText("^");
+                }else{
+                    text[5][col].setText("1");
+                    g.removeText(text[5][col]);
+                    g.removeRectangle(bricks[5][col]);
+                }
+            }
+        }
+
     }
 
 
