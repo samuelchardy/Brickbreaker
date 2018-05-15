@@ -156,6 +156,8 @@ public class BrickBreaker
 
             if(m.getLevel() == 4){
                 m.menuPanel();
+                clearLevel();
+                g.removeText(levelOver);
             }else if(m.getLevel() == 0){
                 input();
                 if(didWin() == true){
