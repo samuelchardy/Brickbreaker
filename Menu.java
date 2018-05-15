@@ -15,6 +15,7 @@ public class Menu implements ActionListener
     private JButton levelOne = new JButton("1");
     private JButton levelTwo = new JButton("2");
     private JButton levelThree = new JButton("3");
+    private JButton back = new JButton("BACK");
 
     private int level = 4;
     private int round = 1;
@@ -85,19 +86,16 @@ public class Menu implements ActionListener
         menuPanel.add(title);
 
         //levelOne
-        //levelOne.setSize(100,75);
         levelOne.setLocation(4,2);
         levelOne.addActionListener(this);
         menuPanel.add(levelOne);
 
         //levelTwo
-        //levelTwo.setSize(100,75);
         levelTwo.setLocation(5,2);
         levelTwo.addActionListener(this);
         menuPanel.add(levelTwo);
 
         //levelThree
-        //levelThree.setSize(100,75);
         levelThree.setLocation(6,2);
         levelThree.addActionListener(this);
         menuPanel.add(levelThree);
@@ -115,6 +113,11 @@ public class Menu implements ActionListener
         roundNumber.setLocation(8,2);
         menuPanel.add(roundNumber);
 
+        //back
+        back.setLocation(6,2);
+        back.addActionListener(this);
+        menuPanel.add(back);
+
         menuPanel();
         return menuPanel;
     }
@@ -130,6 +133,7 @@ public class Menu implements ActionListener
         levelNumber.setVisible(true);
         numOfBalls.setVisible(true);
         roundNumber.setVisible(true);
+        back.setVisible(true);
     }
 
 
@@ -142,6 +146,7 @@ public class Menu implements ActionListener
         levelNumber.setVisible(false);
         numOfBalls.setVisible(false);
         roundNumber.setVisible(false);
+        back.setVisible(false);
     }
 
 
@@ -156,6 +161,10 @@ public class Menu implements ActionListener
         }else if(e.getSource() == levelThree){
             level = 3;
             gamePanel();
+        }
+
+        if(e.getSource() == back){
+            level = 4;
         }
 
     }
