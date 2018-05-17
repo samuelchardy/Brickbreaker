@@ -46,8 +46,16 @@ public class Menu implements ActionListener
     public void setLevel(int lvl)
     {
         level = lvl;
-        levelNumber.setText("Level No. " + String.valueOf(level));
     }
+
+    /**
+     * Sets the current displayed level number of the game.
+     * @param lvl The int value of the new level number to be displayed.
+     **/
+    public void displayLevel(int lvl){
+            levelNumber.setText("Level No. " + String.valueOf(lvl));
+    }
+
 
     /**
      * Sets the current round of the game and sets the text of roundNumber to include new round.

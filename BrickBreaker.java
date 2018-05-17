@@ -140,6 +140,7 @@ public class BrickBreaker
     private void gameLoop()
     {
         while(true){
+
             if(i == maxBalls){
                 if(roundOver()==true){
                     if(m.getRound() == 5){
@@ -168,15 +169,18 @@ public class BrickBreaker
             {
                 maxBalls = 50;
                 m.setLevel(0);
+                m.displayLevel(1);
                 initLevel(1);
             }else if(m.getLevel() == 2){
                 maxBalls = 50;
                 m.setLevel(0);
+                m.displayLevel(2);
                 initLevel(2);
             }else if(m.getLevel() == 3){
                 maxBalls = 50;
                 m.setBallCount(50);
                 m.setLevel(0);
+                m.displayLevel(3);
                 initLevel(3);
             }
 
@@ -272,7 +276,7 @@ public class BrickBreaker
                         xPos = ((575/10) * (c+1));
                     }
                 }else{
-                    health = "50";
+                    health = "5";
                     xPos = ((575/10) * (c+1))-20;
                 }
 
