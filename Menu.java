@@ -21,25 +21,38 @@ public class Menu implements ActionListener
     private int round = 1;
 
 
+    /**
+     * Retreives the current level of the game.
+     * @return The value of int level.
+     **/
     public int getLevel()
     {
         return level;
     }
 
-
+    /**
+     * Retreives the current round of the game.
+     * @return The value of int round.
+     **/
     public int getRound()
     {
         return round;
     }
 
-
+    /**
+     * Sets the current level of the game.
+     * @param lvl The int value of the new level of the game.
+     **/
     public void setLevel(int lvl)
     {
         level = lvl;
         levelNumber.setText("Level No. " + String.valueOf(level));
     }
 
-
+    /**
+     * Sets the current round of the game and sets the text of roundNumber to include new round.
+     * @param rnd The int value of the new round of the game.
+     **/
     public void setRound(int rnd)
     {
         round = rnd;
@@ -48,9 +61,9 @@ public class Menu implements ActionListener
         roundNumber.setText(newText);
     }
 
-
-
-
+    /**
+     * Decrements the number representing the number of balls, in the text of the label numOfBalls.
+     **/
     public void decrementBalls()
     {
         String[] currentText = numOfBalls.getText().split(" ");
@@ -59,7 +72,10 @@ public class Menu implements ActionListener
         numOfBalls.setText(newText);
     }
 
-
+    /**
+     * Sets the number representing the number of balls, in the text of the label numOfBalls.
+     * @param balls The new number of balls left.
+     **/
     public void setBallCount(int balls)
     {
         String[] currentText = numOfBalls.getText().split(" ");
@@ -67,54 +83,51 @@ public class Menu implements ActionListener
         numOfBalls.setText(newText);
     }
 
-
+    /**
+     * Increments the current round number and calls the setRound method.
+     **/
     public void incrementRound()
     {
         round++;
         setRound(round);
     }
 
-
+    /**
+     * Initialises all JComponents and their necessary details, adds ActionListeners, and adds all components to the JPanel menuPanel.
+     * @return The JPanel menuPanel containing all JComponents.
+     **/
     public JPanel initJComponents()
     {
         //panel
         menuPanel.setLayout(new GridLayout(100,100));
 
         //title
-        title.setLocation(2,2);
         title.setSize(75,75);
         menuPanel.add(title);
 
         //levelOne
-        levelOne.setLocation(4,2);
         levelOne.addActionListener(this);
         menuPanel.add(levelOne);
 
         //levelTwo
-        levelTwo.setLocation(5,2);
         levelTwo.addActionListener(this);
         menuPanel.add(levelTwo);
 
         //levelThree
-        levelThree.setLocation(6,2);
         levelThree.addActionListener(this);
         menuPanel.add(levelThree);
 
         //levelNumber
         levelNumber.setText("Level No. " + String.valueOf(level));
-        levelNumber.setLocation(6,2);
         menuPanel.add(levelNumber);
 
         //numOfBalls
-        numOfBalls.setLocation(8,2);
         menuPanel.add(numOfBalls);
 
         //roundNumber
-        roundNumber.setLocation(8,2);
         menuPanel.add(roundNumber);
 
         //back
-        back.setLocation(6,2);
         back.addActionListener(this);
         menuPanel.add(back);
 
@@ -122,7 +135,9 @@ public class Menu implements ActionListener
         return menuPanel;
     }
 
-
+    /**
+     * Uses the setVisible method of JComponents to hide all components not required during the games active (playable) state.
+     **/
     public void gamePanel()
     {
         //Removing components
@@ -136,7 +151,9 @@ public class Menu implements ActionListener
         back.setVisible(true);
     }
 
-
+    /**
+     * Uses the setVisible method of JComponents to hide all components not required during the games inactive (menu) state.
+     **/
     public void menuPanel()
     {
         levelOne.setVisible(true);
@@ -149,7 +166,9 @@ public class Menu implements ActionListener
         back.setVisible(false);
     }
 
-
+    /**
+     * Triggered upon any button press. Sets the variable level to determine game level and calls gamePanel method to set menu to game mode.
+     **/
     public void actionPerformed(ActionEvent e)
     {
         if(e.getSource() == levelOne){
