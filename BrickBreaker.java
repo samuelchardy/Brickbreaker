@@ -202,7 +202,7 @@ public class BrickBreaker
         i = 0;
         m.setBallCount(50);
         m.setRound(1);
-        m.setLevel(4);
+        m.setLevel(5);
         g.addText(levelOver);
     }
 
