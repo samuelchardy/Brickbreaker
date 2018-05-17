@@ -24,6 +24,12 @@ public class BrickBreaker
     private int colOfSpecial;
 
 
+    /**
+     * Checks if a the coordinates passed in (of a ball) are inside any existing brick, and if so determines which aciton must be taken.
+     * @param ball A instance of the Ball class.
+     * @param xPos X coordinate within the gameArena.
+     * @param yPos Y coordinate within the gameArena.
+     **/
     private boolean isInside(Ball ball, double xPos, double yPos)
     {
         for(int i=0; i<bricks.length; i++){
@@ -68,7 +74,10 @@ public class BrickBreaker
         return false;
     }
 
-
+    /**
+     * Checks if a ball is within the gameArena height and width, and passes in the coordinates of the ball into isInside.
+     * @param ball A instance of the Ball class.
+     **/
     private void collisionDetection(Ball ball)
     {
         if(ball.getXPosition() >= 575){
@@ -94,7 +103,11 @@ public class BrickBreaker
 
     }
 
-
+    /**
+     * Checks if a the coordinates passed in (of a ball) are inside any existing brick, and if so determines which aciton must be taken.
+     * @param balls An array of instances of the Ball class.
+     * @param i Current number of balls that have been fired in a given round.
+     **/
     private void movement(Ball[] balls, int i)
     {
         for(int c=0; c<i; c++){
@@ -104,7 +117,9 @@ public class BrickBreaker
         }
     }
 
-
+    /**
+     * Part of the main game loop, used to retrieve users key press inputs and create new balls/ change firing angle accordingly.
+     **/
     private void input()
     {
         int resistance = 5;
@@ -136,7 +151,9 @@ public class BrickBreaker
         movement(balls, i);
     }
 
-
+    /**
+     * Main game loop, runs methods to: get input, check if a round/ level is over and create specific levels.
+     **/
     private void gameLoop()
     {
         while(true){
@@ -189,7 +206,9 @@ public class BrickBreaker
         }
     }
 
-
+    /**
+     * Loops over all instances of bricks/ text and balls created in a given level and removes them from the gameArena. Also calls methods to reset the text based menu items.
+     **/
     private void clearLevel()
     {
         for(int v=0; v<bricks.length; v++){
@@ -210,7 +229,9 @@ public class BrickBreaker
         g.addText(levelOver);
     }
 
-
+    /**
+     * Loops over all bricks and checks the value of each, if all indicate they have been destroyed, then the game is confirmed as won.
+     **/
     private boolean didWin()
     {
         for(int v=0; v<bricks.length; v++){
@@ -223,7 +244,9 @@ public class BrickBreaker
         return true;
     }
 
-
+    /**
+     * Checks if all balls available to the user in a given round have been fired and left the screen (have a negative y coordinate).
+     **/
     private boolean roundOver()
     {
         for(int i=0; i<maxBalls; i++){
@@ -234,7 +257,9 @@ public class BrickBreaker
         return true;
     }
 
-
+    /**
+     * Loops over all bricks, shifting each down by a constant value added to the height of the brick. Also calls methods to change the displayed round number and ball count.
+     **/
     private void nextRound()
     {
         for(int v=0; v<bricks.length; v++){
@@ -247,7 +272,10 @@ public class BrickBreaker
         m.setBallCount(50);
     }
 
-
+    /**
+     * Generates the bricks of a level and sets their details dependant on the level parameter.
+     * @param level The level selected by the user, between 1 and 3.
+     **/
     private void initLevel(int level)
     {
         int xPos=0, yPos=0;
@@ -309,7 +337,9 @@ public class BrickBreaker
 
     }
 
-
+    /**
+     * Creates two 'lasers' from instances of the Line class, and deletes the row and column of the special block which caused the lasers to be triggered.
+     **/
     private void triggerLaser()
     {
         Line horLaser = new Line(0,bricks[rowOfSpecial][colOfSpecial].getYPosition(),575,bricks[rowOfSpecial][colOfSpecial].getYPosition(),10,"GOLD");
@@ -341,7 +371,9 @@ public class BrickBreaker
         }
     }
 
-
+    /**
+     * Builds the basic components of the gui layout and starts the main game loop after adding the firing line to the game arena.
+     **/
     public BrickBreaker()
     {
         frame.setLayout(new BorderLayout());
