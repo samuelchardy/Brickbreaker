@@ -89,22 +89,37 @@ public class Ball
 
 
 
-
+    /**
+     * Obtains the x direction (xDirection) of this Ball.
+     * @return Double xDirection.
+     **/
     public double getxDirection()
     {
         return xDirection;
     }
 
+    /**
+     * Obtains the y direction (yDirection) of this Ball.
+     * @return Double yDirection.
+     **/
     public double getyDirection()
     {
         return yDirection;
     }
 
+    /**
+     * Sets the x direction (xDirection) of this Ball.
+     * @param xDir The new x direction of the ball.
+     **/
     public void setxDirection(double xDir)
     {
         xDirection = xDir;
     }
 
+    /**
+     * Sets the y direction (yDirection) of this Ball.
+     * @param yDir The new y direction of the ball.
+     **/
     public void setyDirection(double yDir)
     {
         yDirection = yDir;
