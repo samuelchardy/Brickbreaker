@@ -65,7 +65,7 @@ public class Menu implements ActionListener
     {
         round = rnd;
         String[] currentText = roundNumber.getText().split(" ");
-        String newText = currentText[0] + " " + round + " " + currentText[2] + " " + currentText[3];
+        String newText = currentText[0] + " " + round;
         roundNumber.setText(newText);
     }
 
@@ -129,11 +129,11 @@ public class Menu implements ActionListener
         levelNumber.setText("Level No. " + String.valueOf(level));
         menuPanel.add(levelNumber);
 
-        //numOfBalls
-        menuPanel.add(numOfBalls);
-
         //roundNumber
         menuPanel.add(roundNumber);
+
+        //numOfBalls
+        menuPanel.add(numOfBalls);
 
         //back
         back.addActionListener(this);

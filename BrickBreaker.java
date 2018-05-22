@@ -174,7 +174,6 @@ public class BrickBreaker
             }else if(m.getLevel() == 0){
                 input();
                 if((didWin() == true)){
-                    System.out.println("WOW");
                     levelOver.setText("You Win!");
                     clearLevel();
                 }else if(didLose() == true){
@@ -245,7 +244,6 @@ public class BrickBreaker
                  }
              }
          }
-         System.out.println("this");
          return true;
      }
 
@@ -325,7 +323,7 @@ public class BrickBreaker
                         xPos = ((575/10) * (c+1));
                     }
                 }else{
-                    health = "5";
+                    health = "50";
                     xPos = ((575/10) * (c+1))-20;
                 }
 
