@@ -160,15 +160,15 @@ public class BrickBreaker
 
             if(i == maxBalls){
                 if(roundOver()==true){
-                    if(m.getRound() == 5){
-                        if(didWin() == true){
-                            levelOver.setText("You Win!");
-                        }
-                        clearLevel();
-                    }else{
-                        nextRound();
-                        i = 0;
-                    }
+		        if(didWin() == true){
+		            levelOver.setText("You Win!");
+			    clearLevel();
+		        }else if(didLose() == true){
+			    levelOver.setText("You Lose!");
+			    clearLevel();
+			}
+		        nextRound();
+		        i = 0;
                 }
             }
 
@@ -241,8 +241,24 @@ public class BrickBreaker
                 }
             }
         }
+
         return true;
     }
+
+
+    private boolean didLose()
+    {
+        for(int v=0; v<bricks.length; v++){
+            for(int c=0; c<bricks[v].length; c++){
+                if( (bricks[v][c].getYPosition()+bricks[v][c].getHeight()/2) >= g.getArenaHeight() ){
+                    return true;
+                }
+            }
+        }
+	return false;
+    }
+
+
 
     /**
      * Checks if all balls available to the user in a given round have been fired and left the screen (have a negative y coordinate).
