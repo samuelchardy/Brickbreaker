@@ -58,7 +58,7 @@ public class BrickBreaker
                             }catch(Exception e){
                                 textNum = 1;
                             }
-                            Text newText = new Text(Integer.toString(textNum), text[i][c].getXPosition(), text[i][c].getYPosition(), 10, "RED");
+                            Text newText = new Text(Integer.toString(textNum), text[i][c].getXPosition(), text[i][c].getYPosition(), 10, "WHITE");
                             g.removeText(text[i][c]);
                             text[i][c] = newText;
                             g.addText(text[i][c]);
@@ -331,11 +331,9 @@ public class BrickBreaker
                     bricks[v][c] = new Rectangle(xPos, yPos, 55, 20, "GOLD");
                     text[v][c] = new Text("!",xPos-6,yPos+4,10,"WHITE");
                 }else{
-                    bricks[v][c] = new Rectangle(xPos, yPos, 55, 20, "WHITE");
-                    text[v][c] = new Text(health,xPos-6,yPos+4,10,"BLACK");
+                    bricks[v][c] = new Rectangle(xPos, yPos, 55, 20, "GREEN");
+                    text[v][c] = new Text(health,xPos-6,yPos+4,10,"WHITE");
                 }
-				int h = Integer.parseInt(health);
-				bricks[v][c].changeColour(h);
                 g.addRectangle(bricks[v][c]);
                 g.addText(text[v][c]);
             }
