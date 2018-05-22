@@ -122,6 +122,19 @@ public class Rectangle
     {
         colour = c;
     }
+	
+	
+	public void changeColour(int health)
+	{
+		if(health > 15){
+			setColour("Green");
+		}else if(health > 10){
+			setColour("Yellow");
+		}else{
+			setColour("Red");
+		}
+	}
+	
 
     /**
      *

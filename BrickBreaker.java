@@ -62,6 +62,7 @@ public class BrickBreaker
                             g.removeText(text[i][c]);
                             text[i][c] = newText;
                             g.addText(text[i][c]);
+							bricks[i][c].changeColour(textNum);
                             return true;
                         }else{
                             g.removeText(text[i][c]);
@@ -320,7 +321,7 @@ public class BrickBreaker
                         xPos = ((575/10) * (c+1));
                     }
                 }else{
-                    health = "5";
+                    health = "40";
                     xPos = ((575/10) * (c+1))-20;
                 }
 
@@ -329,8 +330,10 @@ public class BrickBreaker
                     text[v][c] = new Text("!",xPos-6,yPos+4,10,"WHITE");
                 }else{
                     bricks[v][c] = new Rectangle(xPos, yPos, 55, 20, "WHITE");
-                    text[v][c] = new Text(health,xPos-6,yPos+4,10,"RED");
+                    text[v][c] = new Text(health,xPos-6,yPos+4,10,"BLACK");
                 }
+				int h = Integer.parseInt(health);
+				bricks[v][c].changeColour(h);
                 g.addRectangle(bricks[v][c]);
                 g.addText(text[v][c]);
             }
