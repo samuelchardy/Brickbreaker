@@ -123,7 +123,10 @@ public class Rectangle
         colour = c;
     }
 	
-	
+	/**
+	 * Changes the colour of a brick depending on that bricks health.
+	 * @param health Integer which reflects the health of the brick.
+	 **/
 	public void changeColour(int health)
 	{
 		if(health > 15){

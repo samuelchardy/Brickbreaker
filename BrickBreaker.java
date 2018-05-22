@@ -246,7 +246,9 @@ public class BrickBreaker
         return true;
     }
 
-
+	/**
+	 * Loops over all bricks and checks the lower side of a bricks y position against the bottom of the game arena
+	 **/
     private boolean didLose()
     {
         for(int v=0; v<bricks.length; v++){
