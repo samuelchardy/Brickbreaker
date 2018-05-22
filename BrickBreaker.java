@@ -161,15 +161,8 @@ public class BrickBreaker
 
             if(i == maxBalls){
                 if(roundOver()==true){
-		        if(didWin() == true){
-		            levelOver.setText("You Win!");
-			    clearLevel();
-		        }else if(didLose() == true){
-			    levelOver.setText("You Lose!");
-			    clearLevel();
-			}
-		        nextRound();
-		        i = 0;
+    		        nextRound();
+    		        i = 0;
                 }
             }
 
@@ -177,23 +170,31 @@ public class BrickBreaker
                 m.menuPanel();
                 clearLevel();
                 g.removeText(levelOver);
+
             }else if(m.getLevel() == 0){
                 input();
-                if(didWin() == true){
+                if((didWin() == true)){
+                    System.out.println("WOW");
                     levelOver.setText("You Win!");
                     clearLevel();
+                }else if(didLose() == true){
+                    levelOver.setText("You Lose!");
+                    clearLevel();
                 }
+
             }else if(m.getLevel() == 1)
             {
                 maxBalls = 50;
                 m.setLevel(0);
                 m.displayLevel(1);
                 initLevel(1);
+
             }else if(m.getLevel() == 2){
                 maxBalls = 50;
                 m.setLevel(0);
                 m.displayLevel(2);
                 initLevel(2);
+
             }else if(m.getLevel() == 3){
                 maxBalls = 50;
                 m.setBallCount(50);
@@ -233,18 +234,21 @@ public class BrickBreaker
     /**
      * Loops over all bricks and checks the value of each, if all indicate they have been destroyed, then the game is confirmed as won.
      **/
-    private boolean didWin()
-    {
-        for(int v=0; v<bricks.length; v++){
-            for(int c=0; c<bricks[v].length; c++){
-                if(!text[v][c].getText().equals("1") && !text[v][c].getText().equals("!")){
-                    return false;
-                }
-            }
-        }
+     private boolean didWin()
+     {
+         for(int v=0; v<bricks.length; v++){
+             for(int c=0; c<bricks[v].length; c++){
+                 if( (bricks[v][c].getYPosition() > 0) && (bricks[v][c].getYPosition() < g.getArenaHeight()) ){
+                     if( (!text[v][c].getText().equals("1")) && (!text[v][c].getText().equals("^")) ){
+                         return false;
+                     }
+                 }
+             }
+         }
+         System.out.println("this");
+         return true;
+     }
 
-        return true;
-    }
 
 	/**
 	 * Loops over all bricks and checks the lower side of a bricks y position against the bottom of the game arena
@@ -260,8 +264,6 @@ public class BrickBreaker
         }
 	return false;
     }
-
-
 
     /**
      * Checks if all balls available to the user in a given round have been fired and left the screen (have a negative y coordinate).
@@ -323,7 +325,7 @@ public class BrickBreaker
                         xPos = ((575/10) * (c+1));
                     }
                 }else{
-                    health = "40";
+                    health = "5";
                     xPos = ((575/10) * (c+1))-20;
                 }
 
