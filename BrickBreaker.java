@@ -98,7 +98,7 @@ public class BrickBreaker
             ball.setyDirection(-1 * ball.getyDirection());
         }
 
-        if(ball.getYPosition() < -10){
+        if(ball.getYPosition()+ball.getxDirection() < -20){
             g.removeBall(ball);
         }
 
@@ -175,10 +175,14 @@ public class BrickBreaker
                 input();
                 if((didWin() == true)){
                     levelOver.setText("You Win!");
-                    clearLevel();
+                    g.addText(levelOver);
+                    m.setLevel(5);
+                    //clearLevel();
                 }else if(didLose() == true){
                     levelOver.setText("You Lose!");
-                    clearLevel();
+                    g.addText(levelOver);
+                    m.setLevel(5);
+                    //clearLevel();
                 }
 
             }else if(m.getLevel() == 1)
@@ -273,6 +277,11 @@ public class BrickBreaker
                 return false;
             }
         }
+
+        for(int i=0; i<maxBalls; i++){
+            balls[i].setColour("black");
+        }
+
         return true;
     }
 
