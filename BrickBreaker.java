@@ -16,12 +16,13 @@ public class BrickBreaker
     private Ball[] dupBalls = new Ball[100];
     private Rectangle[][] bricks = new Rectangle[6][10];
     private Text[][] text = new Text[6][10];
-    private Text levelOver = new Text("LEVEL FAILED!", 100, 100,50,"WHITE");
+    private Text levelOver = new Text("LEVEL FAILED!", 150, 100,50,"WHITE");
 
     private Random rand = new Random();
     private int i = 0, maxBalls = 50;
     private int rowOfSpecial;
     private int colOfSpecial;
+    private int level;
 
 
     /**
@@ -177,12 +178,10 @@ public class BrickBreaker
                     levelOver.setText("You Win!");
                     g.addText(levelOver);
                     m.setLevel(5);
-                    //clearLevel();
                 }else if(didLose() == true){
                     levelOver.setText("You Lose!");
                     g.addText(levelOver);
                     m.setLevel(5);
-                    //clearLevel();
                 }
 
             }else if(m.getLevel() == 1)
@@ -260,7 +259,9 @@ public class BrickBreaker
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
                 if( (bricks[v][c].getYPosition()+bricks[v][c].getHeight()/2) >= g.getArenaHeight() ){
-                    return true;
+                    if(!text[v][c].getText().equals("1")){
+                        return true;
+                    }
                 }
             }
         }
@@ -273,7 +274,7 @@ public class BrickBreaker
     private boolean roundOver()
     {
         for(int i=0; i<maxBalls; i++){
-            if(balls[i].getYPosition() > -20 && balls[i].getYPosition() < 450){
+            if(balls[i].getYPosition() > 0 && balls[i].getYPosition() < 460){
                 return false;
             }
         }
@@ -292,8 +293,14 @@ public class BrickBreaker
     {
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
-                bricks[v][c].setYPosition(bricks[v][c].getYPosition() + bricks[v][c].getHeight()+5);
-                text[v][c].setYPosition(text[v][c].getYPosition() + bricks[v][c].getHeight()+5);
+                if(level == 2){
+                    System.out.println("YO");
+                    bricks[v][c].setYPosition(bricks[v][c].getYPosition() + (bricks[v][c].getHeight()*2)+5);
+                    text[v][c].setYPosition(text[v][c].getYPosition() + (bricks[v][c].getHeight()*2)+5);
+                }else{
+                    bricks[v][c].setYPosition(bricks[v][c].getYPosition() + bricks[v][c].getHeight()+5);
+                    text[v][c].setYPosition(text[v][c].getYPosition() + bricks[v][c].getHeight()+5);
+                }
             }
         }
         m.incrementRound();
@@ -304,10 +311,11 @@ public class BrickBreaker
      * Generates the bricks of a level and sets their details dependant on the level parameter.
      * @param level The level selected by the user, between 1 and 3.
      **/
-    private void initLevel(int level)
+    private void initLevel(int lvl)
     {
         int xPos=0, yPos=0;
         String health = "20";
+        level = lvl;
 
         g.removeText(levelOver);
         rowOfSpecial = rand.nextInt(bricks.length);
@@ -316,13 +324,18 @@ public class BrickBreaker
         for(int v=0; v<bricks.length; v++){
             for(int c=0; c<bricks[v].length; c++){
 
-
+                //Determining y coordinate of brick dependant on it's array index
                 if(v < bricks.length/2){
                     yPos = -1 * ((v*25)+10);
                 }else{
                     yPos = ((v-bricks.length/2) * 25)+15;
                 }
 
+                if(level == 2){
+                    yPos = yPos*2;
+                }
+
+                //Defining the x coordinates dependant on the level
                 if(level == 1){
                     xPos = ((575/10) * (c+1))-20;
                 }else if(level == 2 ){
