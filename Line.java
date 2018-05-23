@@ -1,17 +1,17 @@
 /**
- * Models a simple line. 
+ * Models a simple line.
  * This class represents a Line object. When combined with the GameArena class,
  * instances of the Line class can be displayed on the screen.
  */
-public class Line 
+public class Line
 {
     // The following instance variables define the information needed to represent a Line
-    // Feel free to more instance variables if you think it will support your work... 
-    
+    // Feel free to more instance variables if you think it will support your work...
+
     private double xStart;          // The X coordinate of the start of this Line
-    private double xEnd;            // The X coordinate of the end of this Line 
+    private double xEnd;            // The X coordinate of the end of this Line
     private double yStart;          // The X coordinate of the start of this Line
-    private double yEnd;            // The X coordinate of the end of this Line 
+    private double yEnd;            // The X coordinate of the end of this Line
     private double width;           // The colour of this Line
     private String colour;          // The colour of this Line
 
@@ -103,10 +103,10 @@ public class Line
 
     /**
      * Changes the colour of this Line to the given value.
-     * 
-     * @param c The new colour of this Line. 
+     *
+     * @param c The new colour of this Line.
      * <BR><BR>
-     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.  
+     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.
      * Pure red is "#FF0000"   <BR>
      * Pure green is "#00FF00" <BR>
      * Pure blue is "#0000FF"  <BR>
@@ -133,12 +133,12 @@ public class Line
      *
      * Constructor. Create a new instance of a Line.
      *
-     * @param startx The X co-ordinate in the GameArena where this Line will start.
-     * @param starty The Y co-ordinate in the GameArena where this Line will start.
-     * @param endx The X co-ordinate in the GameArena where this Line will end.
-     * @param endy The Y co-ordinate in the GameArena where this Line will end.
+     * @param startX The X co-ordinate in the GameArena where this Line will start.
+     * @param startY The Y co-ordinate in the GameArena where this Line will start.
+     * @param endX The X co-ordinate in the GameArena where this Line will end.
+     * @param endY The Y co-ordinate in the GameArena where this Line will end.
      * @param w The thickness of this line, in pixels
-     * @param col. The colour of the Line. @see setColour for a description of permissable colours.
+     * @param col The colour of the Line. @see setColour for a description of permissable colours.
      *
      */
     public Line(double startX, double startY, double endX, double endY, double w, String col)
@@ -149,5 +149,5 @@ public class Line
         yEnd = endY;
         width = w;
         colour = col;
-    }    
+    }
 }

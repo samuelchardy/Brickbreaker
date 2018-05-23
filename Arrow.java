@@ -147,13 +147,13 @@ public class Arrow
      *
      * Constructor. Create a new instance of a Arrow.
      *
-     * @param startx The X co-ordinate in the GameArena where this Arrow will start.
-     * @param starty The Y co-ordinate in the GameArena where this Arrow will start.
-     * @param endx The X co-ordinate in the GameArena where this Arrow will end.
-     * @param endy The Y co-ordinate in the GameArena where this Arrow will end.
+     * @param startX The X co-ordinate in the GameArena where this Arrow will start.
+     * @param startY The Y co-ordinate in the GameArena where this Arrow will start.
+     * @param endX The X co-ordinate in the GameArena where this Arrow will end.
+     * @param endY The Y co-ordinate in the GameArena where this Arrow will end.
      * @param w The thickness of this arrow, in pixels
-     * @param col. The colour of the Arrow. @see setColour for a description of permissable colours.
-     *
+     * @param col The colour of the Arrow. @see setColour for a description of permissable colours.
+     * @param arena The game arena which the arrow should be added to.
      */
     public Arrow(double startX, double startY, double endX, double endY, double w, String col, GameArena arena)
     {

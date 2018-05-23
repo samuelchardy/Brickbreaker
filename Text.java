@@ -1,19 +1,19 @@
 /**
- * Models a single line of text. 
+ * Models a single line of text.
  * This class represents a Text object. When combined with the GameArena class,
  * instances of the Text class can be displayed on the screen.
  */
-public class Text 
+public class Text
 {
     // The following instance variables define the information needed to represent a Text
-    // Feel free to more instance variables if you think it will support your work... 
-    
+    // Feel free to more instance variables if you think it will support your work...
+
     private double xPosition;           // The X coordinate of this Text
     private double yPosition;           // The Y coordinate of this Text
     private double size;                // The diameter of this Text
     private String colour;              // The colour of this Text
-    private String text;                // The text to display 
-                                       
+    private String text;                // The text to display
+
 
     /**
      * Obtains the current position of this Text.
@@ -60,7 +60,7 @@ public class Text
         return size;
     }
 
-    /** 
+    /**
      * Changes the size of this Text to the given value.
      * @param s The new size of the Text.
      */
@@ -78,7 +78,7 @@ public class Text
         return text;
     }
 
-    /** 
+    /**
      * Changes the text that this object displays.
      * @param s The new text to display.
      */
@@ -98,10 +98,10 @@ public class Text
 
     /**
      * Changes the colour of this Text to the given value.
-     * 
-     * @param c The new colour of this Text. 
+     *
+     * @param c The new colour of this Text.
      * <BR><BR>
-     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.  
+     * Permissable values are 8 bit hexadecimal RGB values in the format #RRGGBB. e.g.
      * Pure red is "#FF0000"   <BR>
      * Pure green is "#00FF00" <BR>
      * Pure blue is "#0000FF"  <BR>
@@ -135,7 +135,7 @@ public class Text
      * @param y The Y co-ordinate in the GameArena where this Text will initially be located.
      * @param s The size of the Text in pixels.
      * @param col. The colour of the Text. @see setColour for a description of permissable colours.
-     *
+     * @param diameter The diameter of the ball.
      */
     public Text(String s, double x, double y, double diameter, String col)
     {
@@ -144,6 +144,5 @@ public class Text
         yPosition = y;
         size = diameter;
         colour = col;
-    }    
+    }
 }
-
